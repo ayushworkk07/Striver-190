@@ -74,7 +74,7 @@ class Solution {
             else{
                 TreeNode prev = curr.right;
 
-                if(prev.left != null && prev.left != curr){
+                while(prev.left != null && prev.left != curr){
                     prev = prev.left;
                 }
 
