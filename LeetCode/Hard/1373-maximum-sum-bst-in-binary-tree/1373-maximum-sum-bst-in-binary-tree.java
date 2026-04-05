@@ -53,7 +53,7 @@ class Solution {
             int currentSum = left.sum + right.sum + root.val;
             ans = Math.max(ans,currentSum);
             
-            
+            //while sending max and min it should the be most max and least values in the subtree
             return new NodeInfo(
                 Math.max(right.max,root.val),
                 Math.min(left.min,root.val),
