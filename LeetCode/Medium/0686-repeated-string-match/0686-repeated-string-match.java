@@ -15,7 +15,8 @@ class Solution {
             sb.append(a);
             count++;
 
-            if(rabinKarpStringMatching(sb.toString(),b))
+            //using zfunction algo also to learn string matching
+            if(zfunction(sb.toString(),b))
             return count;
         }
 
@@ -65,4 +66,59 @@ class Solution {
         return false;
     }
 
+    public boolean zfunction(String text, String pattern) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(pattern).append("$").append(text);
+
+        int L = 0 , R = 0 , n = sb.length();
+        int[] z = new int[sb.length()];
+
+
+        for(int i = 1 ; i < n ; i++){
+
+            //outside window
+            if(i > R){
+                L = R = i;  // potential new window starts
+
+                while(R < n && sb.charAt(R) == sb.charAt(R-L))
+                R++;
+
+                z[i] = R-L;
+
+                R--;    //moves back to last equal character
+            }
+
+            else{
+                //i is inside the box R-L
+                int k = i-L;
+
+                if(z[k] + i <= R){
+                    z[i] = z[k];
+                }
+                
+                //if z[k] + L pans out of the window we start checking from here
+                else{
+                    L = i;
+
+                    while(R < n && sb.charAt(R) == sb.charAt(R-L))
+                        R++;
+
+                    z[i] = R-L;
+
+                    R--;
+                }
+            }
+        }
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        //add from next character of '$'
+        int plength = pattern.length();
+        for(int i = plength+1 ;i < n ; i++){
+            
+            if(z[i] == plength)
+                return true;
+        }
+        return false;
+    }
 }
