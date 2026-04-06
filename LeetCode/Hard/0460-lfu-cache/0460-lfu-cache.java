@@ -73,8 +73,11 @@ class LFUCache {
     
     //if key exists update
     public void put(int key, int value) {
+        if(capacity == 0) return ;
+
         if(nodeMap.containsKey(key)){
             Node node = nodeMap.get(key);
+            node.value = value;
             update(node);
         }
         //if key doesnt exist
@@ -86,6 +89,7 @@ class LFUCache {
             }
             
             insertListNode(new Node(key,value));
+            minFreq = 1;
         }
     }
 
@@ -122,5 +126,6 @@ class LFUCache {
     public void insertListNode(Node node){
         freqMap.computeIfAbsent(node.freq,k->new DLL()).addNode(node);
         nodeMap.put(node.key , node);
+
     }
 }
