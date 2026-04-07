@@ -12,15 +12,15 @@ class Solution {
                 dq.pollFirst();
 
             //remove smaller to keep monotonicity
-            while(!dq.isEmpty() && dq.peekLast() < nums[i])
+            while(!dq.isEmpty() && nums[dq.peekLast()] < nums[i])
                 dq.pollLast();
 
             //add current
-            dq.add(nums[i]);
+            dq.add(i);
 
             //store ans for that window
             if(i >= k-1){
-                ans[i-k+1] = dq.peekFirst();
+                ans[i-k+1] = nums[dq.peekFirst()];
             }
         }
 
