@@ -7,11 +7,17 @@ class Solution {
     }
 
     public int quickSelect(int nums[] , int left , int right , int targetIdx){
+
+        //if only element left
         if(left == right) return nums[left];
         
+        //find random index
         int randomIdx = left + (int)((right - left + 1)*Math.random());
+
+        //swap with right
         swap(nums,randomIdx,right);
 
+        //swap all elements smaller than nums[right] on its left
         int j = left;
         for(int i = left ; i < right ;i++){
             if(nums[i] < nums[right]){
@@ -22,6 +28,7 @@ class Solution {
 
         swap(nums,right,j);
 
+        //return or find in right side or left side
         if(j == targetIdx)
         return nums[j];
 
