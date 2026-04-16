@@ -1,7 +1,17 @@
 class Solution {
+    /* each node (combination of i , j) returns total number of distinct subsequences of substring 
+    of s (i to n)  which are equal to t (j to n)
+
+    if the chars are equal it asks the next nodes to solve themselves by 
+    1) finding the next equal characters i+1,j+1
+    2) finding another equal character i+1, j
+
+    if not equal chars , it asks the next node to solve themselves by
+    1)finding the next equal character (i+1,j)
+    */
     public int numDistinct(String s, String t) {
-        return f(s,t,0,0, new Integer[s.length()+1][t.length()+1]);
-        // return tabulization(s,t);
+        // return f(s,t,0,0, new Integer[s.length()+1][t.length()+1]);
+        return tabulization(s,t);
     }
 
     public int f(String s , String t , int i , int j , Integer[][] dp ){
@@ -49,7 +59,7 @@ class Solution {
                     count = dp[i+1][j+1] + dp[i+1][j];
 
                 else
-                    count = dp[i+1][j+1];
+                    count = dp[i+1][j];
 
                 dp[i][j] = count;
             }
