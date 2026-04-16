@@ -7,9 +7,9 @@
 */
 class Solution {
     public boolean isMatch(String s, String p) {
-        return f(s,p,0,0 , new Boolean[s.length()+1][p.length()+1]);
+        // return f(s,p,0,0 , new Boolean[s.length()+1][p.length()+1]);
 
-        // return tabulization(s,p);
+        return tabulization(s,p);
     }
 
     public boolean f(String s, String p , int i , int j , Boolean[][]dp){
