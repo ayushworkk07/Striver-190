@@ -1,4 +1,8 @@
 class Solution {
+    /* longest palindromSubsequence = LPS(s , reverse of s)
+    a subsequence is pallindromic when reverse is also same
+    therefore a common subsequence between s and s' is pallindromic
+    */
     public int longestPalindromeSubseq(String s) {
         String reverse = new StringBuilder(s).reverse().toString();
         return tabulization(s,reverse);
