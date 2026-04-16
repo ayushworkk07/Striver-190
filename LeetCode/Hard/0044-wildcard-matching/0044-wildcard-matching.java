@@ -16,7 +16,7 @@ class Solution {
 
         // 1. Base Case: Pattern is exhausted
         if (j == p.length()) {
-            return i == s.length();
+            return dp[i][j] = (i == s.length());
         }
 
         // 2. Base Case: String is exhausted
@@ -25,7 +25,7 @@ class Solution {
             if (p.charAt(j) == '*') {
                 return dp[i][j] = f(s, p, i, j + 1, dp);
             }
-            return false;
+            return dp[i][j] = false;
         }
 
         if(s.charAt(i) == p.charAt(j) || p.charAt(j) == '?'){
