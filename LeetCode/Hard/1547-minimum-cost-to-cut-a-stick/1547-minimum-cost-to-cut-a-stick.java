@@ -16,7 +16,8 @@ class Solution {
         int m = list.size();
         Collections.sort(list);
 
-        return f(list,0,list.size()-1 , new Integer[m][m]);
+        // return f(list,0,list.size()-1 , new Integer[m][m]);
+        return tabulization(list);
     }
 
     public int f(ArrayList<Integer> cuts, int start , int end , Integer[][]dp){
@@ -25,7 +26,7 @@ class Solution {
 
         if(dp[start][end] != null)
             return dp[start][end];
-        
+
         int length = cuts.get(end)-cuts.get(start);
         int minCost = Integer.MAX_VALUE;
         for(int k = start+1 ; k <= end-1 ; k++){
@@ -36,5 +37,32 @@ class Solution {
         }
 
         return dp[start][end] = minCost;
+    }
+
+    public int tabulization(ArrayList<Integer> cuts){
+        int n = cuts.size();
+        int[][] dp = new int[n][n];
+
+        for(int start = n-1 ; start>= 0 ;start--){
+            for(int end = start+1 ; end<=n-1; end++){
+                if(end - start <=1){
+                    dp[start][end] = 0;
+                    continue;
+                }
+
+                int length = cuts.get(end)-cuts.get(start);
+                int minCost = Integer.MAX_VALUE;
+                for(int k = start+1 ; k <= end-1 ; k++){
+
+                        int cost = length + dp[start][k] + dp[k][end];
+
+                        minCost = Math.min(minCost,cost);
+                }
+
+                dp[start][end] = minCost;
+            }
+        }
+
+        return dp[0][n-1];
     }
 }
