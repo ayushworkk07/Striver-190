@@ -8,7 +8,9 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         // return f(nums,0,-1 , new Integer[nums.length+1][nums.length+2]);
 
-        return tabulization(nums);
+        // return tabulization(nums);
+
+        return nlogn(nums);
     }
 
     //as a negative offset of -1 we keep adding lastIndex+1 to convert every index into +ve
@@ -57,5 +59,48 @@ class Solution {
         }
 
         return dp[0][0];
+    }
+
+    /* the nlogn approach to find LIS length
+    1) make a list and keep appending if you find nums[i] > last element 
+    2) else if nums < last element find the first occurance of temp >= nums and replace it
+    -> smaller occurances gives you better chance to extend list later
+    */
+    public int nlogn(int[]nums){
+        ArrayList<Integer> temp = new ArrayList<>();
+        
+        for(int i = 0 ;i < nums.length ;i++){
+            int val = nums[i];
+            if(temp.isEmpty() || temp.get(temp.size()-1) < val)
+                temp.add(val);
+
+            else{
+
+                int nextIndex = lowerBound(temp,val);
+                if(nextIndex != temp.size())
+                    temp.set(nextIndex,val);
+            }
+        }
+
+        return temp.size();
+    }
+
+    public int lowerBound(ArrayList<Integer> nums , int target){
+        int low = 0 , high = nums.size()-1;
+
+        int ans = nums.size();
+        while(low <= high){
+            int mid = low + (high -low)/2;
+
+            if(nums.get(mid) >= target){
+                ans = high;
+                high = mid-1;
+            }
+
+            else{
+                low = mid+1;
+            }
+        }
+        return ans;
     }
 }
