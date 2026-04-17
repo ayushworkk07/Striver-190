@@ -93,7 +93,7 @@ class Solution {
             int mid = low + (high -low)/2;
 
             if(nums.get(mid) >= target){
-                ans = high;
+                ans = mid;
                 high = mid-1;
             }
 
