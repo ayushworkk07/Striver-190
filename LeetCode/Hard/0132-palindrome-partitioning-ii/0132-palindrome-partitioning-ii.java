@@ -9,8 +9,8 @@ class Solution {
         int n = s.length();
 
 
-        return f(s,0 , new Integer[n+1]);
-        // return tabulization(s);
+        // return f(s,0 , new Integer[n+1]);
+        return tabulization(s);
     }
 
     public int f(String s, int start, Integer[] dp){
