@@ -52,7 +52,8 @@ class Solution {
         for(int nbr: graph[i]){
             if(visited[nbr] == 0){
                     int newColor = color == 1 ? 2 : 1;
-                    dfs(graph,nbr,visited,newColor);
+                    if(dfs(graph,nbr,visited,newColor) == false)
+                    return false;
             }
 
             else if(visited[nbr] == color)
