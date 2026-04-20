@@ -8,8 +8,15 @@ class Solution {
         int[] visited = new int[v];
 
         for(int i = 0 ; i < v ; i++){
-            if(visited[i] == 0 && bfs(graph,i,visited) == false)
-                return false;
+            if(visited[i]== 0 ){
+
+                // if(bfs(graph,i,visited) == false)
+                //     return false;
+
+                if(dfs(graph,i,visited,1) == false)
+                    return false;
+            }
+
         }
 
         return true;
@@ -33,6 +40,23 @@ class Solution {
                 else if(visited[nbr] == visited[node])
                     return false;
             }   
+        }
+
+        return true;
+    }
+
+    public boolean dfs(int[][] graph,int i ,int[] visited,int color){
+
+        visited[i] = color;
+
+        for(int nbr: graph[i]){
+            if(visited[nbr] == 0){
+                    int newColor = color == 1 ? 2 : 1;
+                    dfs(graph,nbr,visited,newColor);
+            }
+
+            else if(visited[nbr] == color)
+                return false;
         }
 
         return true;
