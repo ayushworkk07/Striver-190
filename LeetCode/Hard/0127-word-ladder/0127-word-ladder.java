@@ -32,16 +32,16 @@ class Solution {
             if(currWord.equals(endWord))
             return count;
 
-            for(int i = 0 ; i < currWord.length() ; i++){
-                for(int j = 0 ;j < 26 ; j++){
-                    StringBuilder sb = new StringBuilder(currWord);
-                    sb.setCharAt(i,(char)('a'+j));
+             for (int i = 0; i < currWord.length(); i++) {
+                char[] chars = currWord.toCharArray();
 
-                    String newWord = sb.toString();
+                for (char ch = 'a'; ch <= 'z'; ch++) {
+                    chars[i] = ch;
+                    String newWord = new String(chars);
 
-                    if(set.contains(newWord)){
-                        set.remove(newWord);
+                    if (set.contains(newWord)) {
                         q.add(new Pair(newWord,count+1));
+                        set.remove(newWord);
                     }
                 }
             }
