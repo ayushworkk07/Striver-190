@@ -49,6 +49,10 @@ class Solution {
             int u = p.node ;
             long uwt = p.wt;
 
+            // Optimization: Skip outdated pairs
+            if (uwt > dist[u]) continue; 
+
+
             for(Pair nbr : graph.get(u)){
                 int v = nbr.node;
                 long vwt = uwt+nbr.wt;
