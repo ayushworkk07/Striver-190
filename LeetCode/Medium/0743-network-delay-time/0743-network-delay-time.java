@@ -26,7 +26,7 @@ class Solution {
         }
 
 
-        ArrayDeque<Pair> q = new ArrayDeque<>();
+        PriorityQueue<Pair> q = new PriorityQueue<>((a,b)-> Integer.compare(a.wt,b.wt));
         q.add(new Pair(src,0));
 
         int dist[] = new int[n+1];
