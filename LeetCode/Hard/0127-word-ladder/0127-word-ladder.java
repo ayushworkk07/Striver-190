@@ -1,52 +1,40 @@
 class Solution {
-    /* 1) add all words in the HS , which will act as O(1) visited
-    
-    2) apply BFS on startWord by trying all 26 letters on every index 
-    if any newWord matches in the HS , add in Q and remove from visited
-
-    3)if a newWord == endWord return count
-    */
-    public class Pair{
-        String word;
-        int count ;
-
-        Pair(String word , int count){
-            this.word = word ;
-            this.count = count;
-        }
-    }
-     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         HashSet<String> set = new HashSet<>();
-        for(String s: wordList)
+        for(String s : wordList)
             set.add(s);
 
-        ArrayDeque<Pair>q = new ArrayDeque<>();
-        q.add(new Pair(beginWord,1));
+        Queue<String> q = new ArrayDeque<>();
+        q.add(beginWord);
 
+        int level = 1;
 
         while(!q.isEmpty()){
-            Pair node = q.poll();
-            String currWord = node.word;
-            int count = node.count;
+            int size = q.size();
 
-            if(currWord.equals(endWord))
-            return count;
+            for(int i =0 ;i < size ; i++){
+                String word  = q.poll();
+                if(word.equals(endWord))
+                    return level;
+                
+                char[] wordArray = word.toCharArray();
 
-             for (int i = 0; i < currWord.length(); i++) {
-                char[] chars = currWord.toCharArray();
+                for(int j = 0 ;j < wordArray.length ; j++){
+                    char orignal = wordArray[j];
+                    for(char ch = 'a' ; ch <= 'z' ; ch++){
+                        wordArray[j] = ch;
+                        String newWord = new String(wordArray);
 
-                for (char ch = 'a'; ch <= 'z'; ch++) {
-                    chars[i] = ch;
-                    String newWord = new String(chars);
-
-                    if (set.contains(newWord)) {
-                        q.add(new Pair(newWord,count+1));
-                        set.remove(newWord);
+                        if(set.contains(newWord)){
+                            set.remove(newWord);
+                            q.add(newWord);
+                        }
                     }
+                    wordArray[j] = orignal; 
                 }
             }
+            level++;
         }
-
 
         return 0;
     }
