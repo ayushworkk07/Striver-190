@@ -38,8 +38,6 @@ class Solution {
 
             if(prevDiff > dist[rr][rc]) continue;
 
-            dist[rr][rc] = prevDiff;
-
             for(int dir[] : dir){
                 int nr = rr + dir[0];
                 int nc = rc + dir[1];
@@ -48,6 +46,7 @@ class Solution {
                     int newDiff = Math.max(prevDiff , Math.abs(grid[nr][nc] - grid[rr][rc]));
                     
                     if(newDiff < dist[nr][nc]){
+                        dist[nr][nc] = newDiff;
                         pq.add(new Pair(nr,nc,newDiff));
                     }
                 }
