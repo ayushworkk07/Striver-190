@@ -38,6 +38,8 @@ class Solution {
             Pair p = q.poll();
             int node = p.node , wt = p.wt;
 
+            if(dist[node] < wt) continue;
+
             for(Pair nbr : graph.get(node)){
                 int newWt = wt+nbr.wt;
 
